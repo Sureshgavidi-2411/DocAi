@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const Document = require("../models/Document");
+const DocumentChunk = require("../models/DocumentChunk");
 const extractPdfText = require("../parsers/pdfParser");
 
 const { createDocumentChunks } = require("./chunkingService");
@@ -80,8 +81,40 @@ const getUserDocuments = async (userId) => {
     .sort({ createdAt: -1 });
 };
 
+const deleteDocument = async (documentId, userId) => {
+  const document = await Document.findOne({
+    _id: documentId,
+    user: userId,
+  });
+
+  if (!document) {
+    throw new Error("Document not found or access denied");
+  }
+
+  await DocumentChunk.deleteMany({
+    document: documentId,
+    user: userId,
+  });
+
+  if (document.filePath && fs.existsSync(document.filePath)) {
+  fs.unlinkSync(document.filePath);
+}
+
+  await Document.deleteOne({
+    _id: documentId,
+    user: userId,
+  });
+
+  
+
+  return {
+    message: "Document deleted successfully",
+  };
+};
+
 module.exports = {
   createDocument,
   processDocument,
   getUserDocuments,
+  deleteDocument,
 };

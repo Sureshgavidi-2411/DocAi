@@ -2,6 +2,7 @@ const {
   createDocument,
   processDocument,
   getUserDocuments,
+  deleteDocument,
 } = require("../services/documentService");
 
 const uploadDocument = async (req, res, next) => {
@@ -43,7 +44,24 @@ const getDocuments = async (req, res, next) => {
   }
 };
 
+const removeDocument = async (req, res, next) => {
+  try {
+    const result = await deleteDocument(
+      req.params.id,
+      req.user.id
+    );
+
+    res.status(200).json({
+      success: true,
+      message: result.message,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   uploadDocument,
   getDocuments,
+  removeDocument,
 };

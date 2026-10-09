@@ -1,0 +1,21 @@
+DocIntel AI Project Specification & Report
+
+Executive Summary:
+DocIntel-AI is an enterprise-grade artificial intelligence document processing platform.
+It leverages advanced natural language processing, vector embeddings, and retrieval-augmented generation (RAG).
+
+Project Architecture:
+- Frontend: Built with React, Vite, React Router, Axios, and modern responsive CSS design.
+- Backend: Implemented with Node.js, Express, MongoDB Atlas, and JWT authentication.
+- Vector Search: Employs MongoDB Atlas Vector Search with cosine similarity thresholding at 0.60.
+- LLM Synthesis: Powered by local Ollama running the Microsoft Phi-3 language model.
+
+Key Features:
+1. Secure Multi-tenant user isolation: Each user only accesses their own documents and embeddings.
+2. Fast document chunking with semantic overlap to prevent context fragmentation.
+3. Accurate citation generation showing source document names and exact chunk indices.
+4. Professional dark-themed SaaS interface with real-time feedback, upload progress, and notifications.
+
+Author: Suresh Gavidi
+Version: 2.4.0
+Status: Verified & Operational

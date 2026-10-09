@@ -3,6 +3,7 @@ const express = require("express");
 const {
   uploadDocument,
   getDocuments,
+  removeDocument,
 } = require("../controllers/documentController");
 
 const protect = require("../middleware/authMiddleware");
@@ -23,6 +24,13 @@ router.get(
   "/",
   protect,
   getDocuments
+);
+
+// Delete logged-in user's document
+router.delete(
+  "/:id",
+  protect,
+  removeDocument
 );
 
 module.exports = router;
